@@ -9,7 +9,7 @@ input, select {
 }
 
 .custom-label{
-    color: black;
+    color: rgb(255, 8, 8);
 }
 
 .custom-button {
@@ -30,4 +30,33 @@ input, select {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
     background-size: 300% 100%;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cancel-button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-image: linear-gradient(to right, #990000, #cc0000, #e60000, #ff0000);
+    color: #FBF2F2;
+    border: none;
+    border-radius: 1.4rem;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: "JetBrains Mono", monospace;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-size: 300% 100%;
+  }
+
+  .error-message{
+    height: 24px;
   }

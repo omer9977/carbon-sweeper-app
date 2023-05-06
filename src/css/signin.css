@@ -32,19 +32,29 @@
     /* background-color: #f1f1f1; */
   
     /* Modal başlığının arka plan rengi */
+    .modal-title {
+      margin-left: auto;
+      font-size: calc(2.275rem + .3vw);
+    }
+
     .modal-header {
-      background-color: #333;
+      background-color: #3E3131;
       color: #fff;
+      text-align: center;
+      border-bottom: none;
+    }
+
+    .modal-content{
+      border-radius: 15px;
     }
   
-    /* Modal içeriğinin yazı rengi */
     .modal-body {
-      color: #333;
+      background-color: #3E3131;
     }
   
     /* Modal footer'ın arka plan rengi */
     .modal-footer {
-      background-color: #333;
+      background-color: #3E3131;
     }
   
     /* Modal footer düğmelerinin yazı rengi */
@@ -52,4 +62,3 @@
       color: #fff;
     }
   }
-  

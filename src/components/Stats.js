@@ -19,18 +19,6 @@ function Stats() {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    // show prop'u değiştiğinde yapılacak işlemler
-    if (showModal) {
-      // Modal açılacaksa burada gerekli işlemler yapılabilir
-      console.log(showModal);
-    } else {
-      // Modal kapanacaksa burada gerekli işlemler yapılabilir
-      console.log(showModal);
-
-    }
-  }, [showModal]);
-
   return (
     <div className="content">
       <div>
