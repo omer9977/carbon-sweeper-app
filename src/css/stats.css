@@ -29,7 +29,10 @@ img {
 }
 
 button {
-    background-color: #54BD58;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-image: linear-gradient(to right, #0ba360, #3cba92, #30dd8a, #2bb673);
     color: #FBF2F2;
     border: none;
     border-radius: 1.4rem;
@@ -38,8 +41,27 @@ button {
     font-size: 1.2rem;
     font-weight: 400;
     font-family: "JetBrains Mono", monospace;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-size: 300% 100%;
+
     
 }
+
+button:hover {
+    background-position: 100% 0;
+
+    cursor: pointer;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+}
+
+
 
 
 
