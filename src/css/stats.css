@@ -1,0 +1,33 @@
+.content {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.content div {
+    padding: 2rem;
+    margin: 10px;
+    padding-top: 2rem;
+
+    
+    font-family: "JetBrains Mono", monospace;
+}
+
+.number {
+    display:contents;
+    color: #54BD58;
+}
+
+img {
+    width: 40rem;
+    height: 30rem;
+    margin: 10px;
+    padding-left: 20rem;
+}
+
+.statsec {
+    
+}
