@@ -22,7 +22,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
   };
 
   const renderProfileOptions = () => {
-    if (/*isLoggedIn*/true) {
+    if (/*isLoggedIn*/false) {
       return (
         <>
           <NavLink to="/profile" style={linkStyle}>Profil</NavLink>

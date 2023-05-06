@@ -1,32 +1,4 @@
-.content {
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .content div {
-    padding: 2rem;
-    margin: 10px;
-    padding-top: 2rem;
-    font-family: "JetBrains Mono", monospace;
-  }
-  
-  .number {
-    display: contents;
-    color: #54BD58;
-  }
-  
-  .custom-image{
-    width: 40rem;
-    height: 30rem;
-    margin: 10px;
-    padding-left: 20rem;
-    box-sizing: content-box;
-  }
-  
-  .buttons button {
+.custom-button {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -45,8 +17,8 @@
     transition: all .4s ease-in-out;
     background-size: 300% 100%;
   }
-  
-  button:hover {
+
+  .custom-button:hover {
     background-position: 100% 0;
     cursor: pointer;
     -moz-transition: all .4s ease-in-out;
@@ -54,8 +26,30 @@
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
   }
+
+  .custom-modal {
+    /* Modalın arka plan rengi */
+    /* background-color: #f1f1f1; */
   
-  button + button {
-    margin-left: 6rem;
+    /* Modal başlığının arka plan rengi */
+    .modal-header {
+      background-color: #333;
+      color: #fff;
+    }
+  
+    /* Modal içeriğinin yazı rengi */
+    .modal-body {
+      color: #333;
+    }
+  
+    /* Modal footer'ın arka plan rengi */
+    .modal-footer {
+      background-color: #333;
+    }
+  
+    /* Modal footer düğmelerinin yazı rengi */
+    .modal-footer button {
+      color: #fff;
+    }
   }
   
