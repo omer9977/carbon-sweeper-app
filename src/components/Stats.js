@@ -5,7 +5,7 @@ function Stats() {
     const totalUsers = <div className="number">{seed}</div> 
     const savedTrees = <div className="number">{Math.floor(seed * 0.8)}</div>
     const emissions = <div className="number">0.1</div>
-
+    
 
     return (
         <div className="content">
@@ -24,6 +24,7 @@ function Stats() {
             
         </div>
     );
+    
 }
 
 export default Stats;

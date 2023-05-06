@@ -2,6 +2,10 @@ import "../css/welcome.css"
 import Stats from "../components/Stats";
 
 function Welcome() {
+    
+
+    
+
 
 
     return (
