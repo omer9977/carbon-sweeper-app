@@ -1,0 +1,22 @@
+nav {
+    background-color: #54BD58;
+    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    color: #FBF2F2;
+}
+
+h1 {
+    padding: 7px;
+    size: 6rem;
+    letter-spacing: 3px;
+    font-style: regular;
+    font-weight: 600;
+}
+
+div{
+    font-family: "JetBrains Mono", monospace;
+    
+    
+}
