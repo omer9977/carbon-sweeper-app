@@ -16,6 +16,10 @@ function Stats() {
                 <div className="statsec">Total users: {totalUsers}</div>
                 <div className="statsec">Saved trees: {savedTrees}</div>
                 <div className="statsec">Total emissions: {emissions}</div>
+                <div className="buttons">
+                    <button>Sign In</button>
+                    <button>Sign Up</button>  
+                </div>
             </div>
             
         </div>

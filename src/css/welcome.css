@@ -20,3 +20,20 @@ div{
     color: #FBF2F2;
     
 }
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    margin: 10px;
+    padding-top: 2rem;
+    left: 50%;
+    align-items: center;
+    justify-content: center;
+    
+     
+    font-family: "JetBrains Mono", monospace;
+}

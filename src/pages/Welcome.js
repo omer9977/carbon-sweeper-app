@@ -9,6 +9,7 @@ function Welcome() {
             <nav>
                 <h1>Carbon Sweeper</h1>
             </nav>
+
             <h2>Welcome to Carbon Sweeper!</h2>
             <div className="stats">
                 <Stats />
