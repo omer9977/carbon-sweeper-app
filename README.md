@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Carbon Sweeper App
+
+This app is an early demo of the desired product as part of a CENG318 assignment of IZTECH
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

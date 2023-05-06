@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = ({ isLoggedIn, username, onLogout }) => {
   const navbarStyle = {
@@ -25,12 +25,12 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
     if (/*isLoggedIn*/true) {
       return (
         <>
-          <Link to="/profile" style={linkStyle}>Profil</Link>
+          <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
           <button onClick={onLogout} style={linkStyle}>Logout</button>
         </>
       );
     } else {
-      return <Link to="/register" style={linkStyle}>Register</Link>;
+      return <NavLink to="/register" style={linkStyle}>Register</NavLink>;
     }
   };
 
@@ -38,13 +38,13 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
     <nav style={navbarStyle}>
       <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
         <li style={{ display: 'inline' }}>
-          <Link to="/" style={linkStyle}>Home</Link>
+          <NavLink to="/" style={linkStyle}>Home</NavLink>
         </li>
         <li style={{ display: 'inline' }}>
-          <Link to="/" style={linkStyle}>Calculator</Link>
+          <NavLink to="/" style={linkStyle}>Calculator</NavLink>
         </li>
         <li style={{ display: 'inline' }}>
-          <Link to="/" style={linkStyle}>Leaderboard</Link>
+          <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
         </li>
       </ul>
       {isLoggedIn && (

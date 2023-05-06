@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import Welcome from "./pages/Welcome";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import React from 'react';
@@ -12,9 +11,8 @@ const App = () => {
     <Navbar />
 
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Welcome />} />
 
-      {/* Diğer rotaları buraya ekleyebilirsiniz */}
     </Routes>
   </div>
 </Router>
