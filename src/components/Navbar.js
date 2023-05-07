@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import CalculatorModal from './CalculatorModal';
+import SignIn from '../pages/SignIn';
 
 const Navbar = ({ isLoggedIn, username, onLogout }) => {
   const linkStyle = {
@@ -45,6 +47,17 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
 
   const [showProfileOptions, setShowProfileOptions] = useState(false);
 
+  const [showCalculatorModal, setShowCalculatorModal] = useState(false);
+
+  const handleOpenCalculatorModal = () => {
+    console.log("selam");
+    setShowCalculatorModal(true);
+  };
+
+  const handleCloseCalculatorModal = () => {
+    setShowCalculatorModal(false);
+  };
+
   const handleProfileClick = () => {
     setShowProfileOptions(prevState => !prevState);
   };
@@ -55,35 +68,38 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
   };
 
   return (
-    <nav className="navbar" style={navbarStyle}>
-      <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-        <li style={{ display: 'inline' }}>
-          <NavLink to="/home" style={linkStyle}>Home</NavLink>
-        </li>
-        <li style={{ display: 'inline' }}>
-          <NavLink to="/" style={linkStyle}>Calculator</NavLink>
-        </li>
-        <li style={{ display: 'inline' }}>
-          <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
-        </li>
-      </ul>
-      {/* {isLoggedIn && ( */}
-      <div style={profileStyle}>
-        <span style={usernameStyle}>{/*username*/}John Doe</span>
-        <img
-          src="https://img.a.transfermarkt.technology/portrait/header/68863-1671105169.png?lm=1"
-          alt="Profile"
-          style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
-          onClick={handleProfileClick}
-        />
-        {showProfileOptions && (
-          <div style={profileOptionsStyle}>
-            <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
-            <button onClick={handleLogout} style={linkStyle}>Logout</button>
-          </div>
-        )}
-      </div>
-    </nav>
+    <div>
+      <nav className="navbar" style={navbarStyle}>
+        <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
+          <li style={{ display: 'inline' }}>
+            <NavLink to="/home" style={linkStyle}>Home</NavLink>
+          </li>
+          <li style={{ display: 'inline' }}>
+            <NavLink className='nav-button' onClick={handleOpenCalculatorModal} style={linkStyle}>Calculator</NavLink>
+          </li>
+          <li style={{ display: 'inline' }}>
+            <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
+          </li>
+        </ul>
+        {/* {isLoggedIn && ( */}
+        <div style={profileStyle}>
+          <span style={usernameStyle}>{/*username*/}John Doe</span>
+          <img
+            src="https://img.a.transfermarkt.technology/portrait/header/68863-1671105169.png?lm=1"
+            alt="Profile"
+            style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
+            onClick={handleProfileClick}
+          />
+          {showProfileOptions && (
+            <div style={profileOptionsStyle}>
+              <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
+              <button onClick={handleLogout} style={linkStyle}>Logout</button>
+            </div>
+          )}
+        </div>
+      </nav>
+      <CalculatorModal show={showCalculatorModal} onHide={handleCloseCalculatorModal} />
+    </div>
   );
 };
 
