@@ -1,44 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = ({ isLoggedIn, username, onLogout }) => {
-  const navbarStyle = {
-    backgroundColor: 'green',
-    padding: '10px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  };
-
   const linkStyle = {
     color: 'white',
     marginRight: '10px',
     textDecoration: 'none',
   };
 
-  const profileStyle = {
+  const usernameStyle = {
+    marginRight: '10px',
     color: 'white',
-    textDecoration: 'none',
   };
 
-  const renderProfileOptions = () => {
-    if (/*isLoggedIn*/false) {
-      return (
-        <>
-          <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
-          <button onClick={onLogout} style={linkStyle}>Logout</button>
-        </>
-      );
-    } else {
-      return <NavLink to="/register" style={linkStyle}>Register</NavLink>;
-    }
+  const navbarStyle = {
+    backgroundColor: '#54BD58',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    color: '#FBF2F2',
+    padding: '10px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
+
+  const profileStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative',
+
+  };
+
+  const profileOptionsStyle = {
+    marginLeft: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    backgroundColor: '#54BD58',
+    padding: '10px',
+    marginTop: '5px',
+    top: '40px',
+    right: 0,
+  };
+
+  const [showProfileOptions, setShowProfileOptions] = useState(false);
+
+  const handleProfileClick = () => {
+    setShowProfileOptions(prevState => !prevState);
+  };
+
+  const handleLogout = () => {
+    onLogout();
+    setShowProfileOptions(false);
   };
 
   return (
-    <nav style={navbarStyle}>
+    <nav className="navbar" style={navbarStyle}>
       <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
         <li style={{ display: 'inline' }}>
-          <NavLink to="/" style={linkStyle}>Home</NavLink>
+          <NavLink to="/home" style={linkStyle}>Home</NavLink>
         </li>
         <li style={{ display: 'inline' }}>
           <NavLink to="/" style={linkStyle}>Calculator</NavLink>
@@ -47,13 +67,22 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
           <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
         </li>
       </ul>
-      {isLoggedIn && (
-        <div>
-          <span style={{ marginRight: '10px', color: 'white' }}>Welcome, {username}</span>
-          {renderProfileOptions()}
-        </div>
-      )}
-      {!isLoggedIn && renderProfileOptions()}
+      {/* {isLoggedIn && ( */}
+      <div style={profileStyle}>
+        <span style={usernameStyle}>{/*username*/}John Doe</span>
+        <img
+          src="https://img.a.transfermarkt.technology/portrait/header/68863-1671105169.png?lm=1"
+          alt="Profile"
+          style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
+          onClick={handleProfileClick}
+        />
+        {showProfileOptions && (
+          <div style={profileOptionsStyle}>
+            <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
+            <button onClick={handleLogout} style={linkStyle}>Logout</button>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };

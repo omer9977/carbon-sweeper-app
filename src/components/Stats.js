@@ -3,20 +3,31 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 function Stats() {
   const seed = Math.floor(Math.random() * 1000);
   const totalUsers = <div className="number">{seed}</div>;
   const savedTrees = <div className="number">{Math.floor(seed * 0.8)}</div>;
   const emissions = <div className="number">0.1</div>;
-  const [showModal, setShowModal] = useState(false);
+  const [showModalSignin, setShowModalSignin] = useState(false);
+  const [showModalSignup, setShowModalSignup] = useState(false);
 
-  const handleShowModal = () => {
-    setShowModal(true);
+
+  const handleShowModalSignin = () => {
+    setShowModalSignin(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseModalSignin = () => {
+    setShowModalSignin(false);
+  };
+
+  const handleShowModalSignup = () => {
+    setShowModalSignup(true);
+  };
+
+  const handleCloseModalSignup = () => {
+    setShowModalSignup(false);
   };
 
   return (
@@ -29,12 +40,12 @@ function Stats() {
         <div className="statsec">Saved trees: {savedTrees}</div>
         <div className="statsec">Total emissions: {emissions}</div>
         <div className="buttons">
-          <button onClick={handleShowModal}>Sign In</button>
-          <button>Sign Up</button>
+          <button onClick={handleShowModalSignin}>Sign In</button>
+          <button onClick={handleShowModalSignup}>Sign Up</button>
         </div>
       </div>
-      <SignIn showModal={showModal} handleCloseModal={handleCloseModal} />
-
+      <SignIn showModal={showModalSignin} handleCloseModal={handleCloseModalSignin} />
+      <SignUp showModal={showModalSignup} handleCloseModal={handleCloseModalSignup} />
     </div>
   );
 }

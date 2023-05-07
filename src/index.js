@@ -1,11 +1,13 @@
 import React from "react"
-import ReactDOM from "react-dom/client"
+import ReactDOM from "react-dom"
 import App from "./App"
 import "./css/index.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthProvider } from './context/AuthContext';
 
-
-const el = document.getElementById("root");
-const root = ReactDOM.createRoot(el);
-
-root.render(<App />);
+ReactDOM.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+  document.getElementById("root")
+);

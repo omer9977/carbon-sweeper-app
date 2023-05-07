@@ -28,10 +28,6 @@
   }
 
   .custom-modal {
-    /* Modalın arka plan rengi */
-    /* background-color: #f1f1f1; */
-  
-    /* Modal başlığının arka plan rengi */
     .modal-title {
       margin-left: auto;
       font-size: calc(2.275rem + .3vw);
