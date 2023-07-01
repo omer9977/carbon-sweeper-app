@@ -15,7 +15,7 @@ const Home = () => {
       <div>
         <img className="custom-image" src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/VB4VMQHUZJO6HLU5YUVDW7ZXQI.jpg" alt="house" />
       </div>
-      <div>
+      <div className="content">
         <div className="statsec">With our combined efforts it would take us <span style={{ color: "red" }}>148 years</span> to neutralize the yearly
           emission of <span style={{ color: "yellow" }}>British Petrolum</span>.
         </div>

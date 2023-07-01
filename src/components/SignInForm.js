@@ -8,19 +8,23 @@ const SignInForm = ({ show, onShowChange }) => {
   const { login, accessToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const initialValues = {
-    email: '',
+    username: '',
     password: '',
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Please enter a valid email').required('Email is mandatory'),
+    // email: Yup.string().email('Please enter a valid email').required('Email is mandatory'),
     password: Yup.string().required('Password is mandatory'),
   });
 
-  const handleSubmit = (values) => {
-    login(values.email, values.password);
-    if (accessToken) {
+  const handleSubmit = async (values) => {
+    var response = await login(values.username, values.password);
+    if (response.hasError && !response.hasError) {
+      console.log("oldu"+response);
       navigate('/home');
+    }
+    else {
+      console.log("olmadı"+response.error);
     }
   };
 
@@ -34,13 +38,13 @@ const SignInForm = ({ show, onShowChange }) => {
         <Form>
           <div className="custom-textbox">
             <Field
-              type="email"
-              id="email"
-              name="email"
+              type="text"
+              id="username"
+              name="username"
               className="field-input"
-              placeholder="Email"
+              placeholder="Username or Email"
             />
-            <ErrorMessage name="email" component="div" className="error-message" />
+            <ErrorMessage name="username" component="div" className="error-message" />
           </div>
           <div className="custom-textbox">
             <Field

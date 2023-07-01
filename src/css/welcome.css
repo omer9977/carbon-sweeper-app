@@ -16,10 +16,9 @@ h1 {
     font-style: normal;
 }
 
-div{
+.welcome-content{
     font-family: "JetBrains Mono", monospace;
     color: #FBF2F2;
-    
 }
 
 h2 {

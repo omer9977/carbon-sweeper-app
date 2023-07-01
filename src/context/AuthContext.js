@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { authenticateUser, logoutUser } from '../services/AuthService';
+import showToast from '../utils/showToast';
 
 const AuthContext = createContext();
 
@@ -10,16 +11,19 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await authenticateUser(email, password);
 
-    //   if (response.success) {
+      if (!response.hasError) {
         console.log(response);
-        const token = response/*response.accessToken*/;
+        const token = response.data.token.accessToken;
         setAccessToken(token);
         localStorage.setItem('accessToken', token);
-    //   } else {
-    //     console.log(response.error);
-    //   }
+        showToast("success", response.data.token.accessToken);
+      } else {
+        console.log(response.error);
+        showToast("error", response.error);
+      }
+      return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 

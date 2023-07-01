@@ -5,7 +5,7 @@ function Welcome() {
 
 
     return (
-        <div>
+        <div className="welcome-content">
             <nav>
                 <h1>Carbon Sweeper</h1>
             </nav>
