@@ -80,6 +80,9 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
           <li style={{ display: 'inline' }}>
             <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
           </li>
+          <li style={{ display: 'inline' }}>
+            <NavLink to="/foot-print-info" style={linkStyle}>Foot Print Info</NavLink>
+          </li>
         </ul>
         {/* {isLoggedIn && ( */}
         <div style={profileStyle}>
