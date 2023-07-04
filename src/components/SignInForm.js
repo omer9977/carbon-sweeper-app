@@ -19,7 +19,9 @@ const SignInForm = ({ show, onShowChange }) => {
 
   const handleSubmit = async (values) => {
     var response = await login(values.username, values.password);
-    if (response.hasError && !response.hasError) {
+    console.log("response");
+    console.log(response);
+    if (response.data && !response.hasError) {
       console.log("oldu"+response);
       navigate('/home');
     }

@@ -10,19 +10,21 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await authenticateUser(email, password);
-
+      console.log(response);
       if (!response.hasError) {
         console.log(response);
         const token = response.data.token.accessToken;
+        console.log(token);
         setAccessToken(token);
         localStorage.setItem('accessToken', token);
-        showToast("success", response.data.token.accessToken);
+        showToast("success", "Login success");
       } else {
         console.log(response.error);
         showToast("error", response.error);
       }
       return response;
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   };

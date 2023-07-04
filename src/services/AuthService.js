@@ -13,7 +13,7 @@ const authenticateUser = async (email, password) => {
 
     console.log(response.data); // Yanıt verilerini konsolda göster
 
-    return response.data.accessToken; // Erişim belirteci (accessToken) döndür
+    return response.data // Erişim belirteci (accessToken) döndür
   } catch (error) {
     // console.log(error);
     // console.log(error.response.data);
