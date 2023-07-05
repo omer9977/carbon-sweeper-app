@@ -6,13 +6,14 @@ import "../css/calculator.css";
 const CalculatorModal = ({ show, onHide }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState(0);
-  const questions = ["House", "General Consumption", "General Consumption", "Transportation"]
+  const questions = ["House", "General Consumption", "General Consumption", "Transportation"];
+  const [progressRate, setProgressRate] = useState(1);
   const [answers, setAnswers] = useState({
     house: { naturalGas: 0, coal: 0, electricity: 0 },
     generalConsumption1: {
       food: 0,
       diet: 1,
-      clothes: 0,
+      // clothes: 0,
       paper: 0,},
       generalConsumption2:{
       electronics: 0,
@@ -29,11 +30,13 @@ const CalculatorModal = ({ show, onHide }) => {
 
   const handlePrevious = () => {
     setCurrentQuestion((prevQuestion) => prevQuestion - 1);
+    setProgressRate(progressRate - 1);
     console.log(currentQuestion);
   };
 
   const handleNext = () => {
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    setProgressRate(progressRate + 1);
     console.log(currentQuestion);
   };
 
@@ -66,7 +69,7 @@ const CalculatorModal = ({ show, onHide }) => {
       generalConsumption1: {
         food: 0,
         diet: 0,
-        clothes: 0,
+        // clothes: 0,
         paper: 0,},
         generalConsumption2:{
         electronics: 0,
@@ -82,6 +85,7 @@ const CalculatorModal = ({ show, onHide }) => {
   const handleSubmit = async () => {
     console.log("Gönderilecek veriler:", answers);
     setCurrentQuestion(currentQuestion + 1);
+    setProgressRate(1);
     var response = await calculateFootPrint(answers);
     setAnswer(response.data);
     console.log(response);
@@ -102,8 +106,8 @@ const CalculatorModal = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <ProgressBar
-          now={(currentQuestion + 1 / 3) * 100}
-          label={`${currentQuestion + 1}/3`}
+          now={(progressRate / 4) * 100}
+          label={`${progressRate}/4`}
         />
         {currentQuestion === 0 && (
           <div className="question">
@@ -141,7 +145,7 @@ const CalculatorModal = ({ show, onHide }) => {
             </div>
           </div>
         )}
-        {currentQuestion === 1 && (
+        {/* {currentQuestion === 1 && (
           <div className="question">
             <span className="calculator-text">How much do you pay to clothes in a month?</span>
             <div className="answer">
@@ -154,7 +158,7 @@ const CalculatorModal = ({ show, onHide }) => {
               />
             </div>
           </div>
-        )}
+        )} */}
         {currentQuestion === 1 && (
           <div className="question">
             <span className="calculator-text">How much do you pay to paper products in a month?</span>
@@ -189,7 +193,7 @@ const CalculatorModal = ({ show, onHide }) => {
             <div className="answer">
               <Form.Select
                 value={answers.generalConsumption1.diet}
-                onChange={handleDropdownChange}
+                onChange={(e) => handleDropdownChange(e, "generalConsumption1", "diet")}
               >
                 <option value="1">Vegan</option>
                 <option value="2">Vegetarian</option>
@@ -309,8 +313,8 @@ const CalculatorModal = ({ show, onHide }) => {
         )}
         {currentQuestion === 4 && (
           <div className="result-screen">
-            <h3>Result:</h3>
-            <pre>{answer}</pre>
+            <h3 className="calculator-text">Result:</h3>
+            <pre className="calculator-text">{answer/1000} ton</pre>
           </div>
         )}
       </Modal.Body>

@@ -58,7 +58,7 @@ function Stats() {
       <div>
         <div className="statsec">Total users: {totalUsers}</div>
         <div className="statsec">Saved trees: {savedTrees}</div>
-        <div className="statsec">Total carbon footprints: {totalFootPrint}</div>
+        <div className="statsec">Total carbon footprints: {totalFootPrint/1000} ton</div>
         <div className="buttons">
           <button onClick={handleShowModalSignin}>Sign In</button>
           <button onClick={handleShowModalSignup}>Sign Up</button>

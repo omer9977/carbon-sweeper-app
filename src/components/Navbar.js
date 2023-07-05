@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import CalculatorModal from './CalculatorModal';
 import SignIn from '../pages/SignIn';
 import decodeJWT from "../utils/jwtDecoder";
@@ -7,7 +7,7 @@ import decodeJWT from "../utils/jwtDecoder";
 const Navbar = ({ isLoggedIn, username, onLogout }) => {
   const token = localStorage.getItem('accessToken');
   const decodedToken = decodeJWT(token);
-
+  const navigate = useNavigate();
   const linkStyle = {
     color: 'white',
     marginRight: '10px',
@@ -68,8 +68,10 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
   };
 
   const handleLogout = () => {
-    onLogout();
+    // onLogout();
     setShowProfileOptions(false);
+    localStorage.removeItem('accessToken');
+    navigate("/");
   };
 
   return (
@@ -93,7 +95,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
         <div style={profileStyle}>
           <span style={usernameStyle}>{decodedToken?.userFullName}</span>
           <img
-            src="https://img.a.transfermarkt.technology/portrait/header/68863-1671105169.png?lm=1"
+            src="https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png"
             alt="Profile"
             style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
             onClick={handleProfileClick}
@@ -101,7 +103,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
           {showProfileOptions && (
             <div style={profileOptionsStyle}>
               <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
-              <button onClick={handleLogout} style={linkStyle}>Logout</button>
+              <NavLink to="/" style={linkStyle}>Logout</NavLink>
             </div>
           )}
         </div>

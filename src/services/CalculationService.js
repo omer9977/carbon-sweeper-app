@@ -15,20 +15,20 @@ const configAxios = {
 const calculateFootPrint = async (answers) => {
   try {
     const data = {
-      clothesTl: answers.generalConsumption.clothes,
-      dietType: answers.generalConsumption.diet,
-      electronicsTl: answers.generalConsumption.electronics,
-      foodTl: answers.generalConsumption.food,
-      funTl: answers.generalConsumption.fun,
-      paperTl: answers.generalConsumption.paper,
+      // clothesTl: answers.generalConsumption.clothes,
+      dietType: answers.generalConsumption1.diet,
+      electronicsTl: answers.generalConsumption2.electronics,
+      foodTl: answers.generalConsumption1.food,
+      funTl: answers.generalConsumption2.fun,
+      paperTl: answers.generalConsumption1.paper,
       coalTl: answers.house.coal,
       electricityTl: answers.house.electricity,
       lpgTl: answers.house.naturalGas,
       carFuelTl: answers.transportation.fuel,
       publicTransportTl: answers.transportation.publicTransport,
       transportFrequency: answers.transportation.transportFrequency,
-      dressingTl: answers.generalConsumption.dressing,
-      paperProductTl: answers.generalConsumption.paperProduct,
+      dressingTl: answers.generalConsumption2.dressing,
+      paperProductTl: answers.generalConsumption1.paperProduct,
     };
     
     const response = await axios.post(`${apiAuthUrl}/calculate-foot-print`, data, configAxios);
@@ -38,7 +38,7 @@ const calculateFootPrint = async (answers) => {
   } catch (error) {
     // console.log(error);
     // console.log(error.response.data);
-    return error.response.data;
+    return error.data;
   }
 };
 

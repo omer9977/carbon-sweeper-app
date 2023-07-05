@@ -4,6 +4,7 @@ import config from '../utils/config';
 
 
 const apiAuthUrl = `${config.apiUrl}/user`;
+const token = localStorage.getItem("accessToken");
 
 const getLeaderBoard = async (answers) => {
   try {
@@ -33,4 +34,23 @@ const getUsersWelcomeDataAsync = async (answers) => {
   }
 };
 
-export { getLeaderBoard, getUsersWelcomeDataAsync };
+const getUserInfosAsync = async (answers) => {
+  try {
+    
+    const response = await axios.get(`${apiAuthUrl}/info`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+
+    return response.data // Erişim belirteci (accessToken) döndür
+  } catch (error) {
+    // console.log(error);
+    // console.log(error.response.data);
+    return error.response.data;
+  }
+};
+
+export { getLeaderBoard, getUsersWelcomeDataAsync, getUserInfosAsync };
