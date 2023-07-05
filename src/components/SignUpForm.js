@@ -31,6 +31,9 @@ const SignInForm = ({ show, onShowChange }) => {
   };
 
   const validationSchema = Yup.object({
+    username: Yup.string().required('Username is mandatory'),
+    firstName: Yup.string().required('First name is mandatory'),
+    lastName: Yup.string().required('Last name is mandatory'),
     email: Yup.string().email('Please enter a valid email').required('Email is mandatory'),
     password: Yup.string().required('Password is mandatory'),
     confirmPassword: Yup.string()

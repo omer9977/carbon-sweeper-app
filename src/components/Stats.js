@@ -1,18 +1,35 @@
 import "../css/stats.css";
 import { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import { getUsersWelcomeDataAsync } from "../services/UserService";
+
 
 function Stats() {
-  const seed = Math.floor(Math.random() * 1000);
-  const totalUsers = <div className="number">{seed}</div>;
-  const savedTrees = <div className="number">{Math.floor(seed * 0.8)}</div>;
-  const emissions = <div className="number">0.1</div>;
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [savedTrees, setSavedTrees] = useState(0);
+  const [totalFootPrint, setTotalFootPrint] = useState(0);
+  
   const [showModalSignin, setShowModalSignin] = useState(false);
   const [showModalSignup, setShowModalSignup] = useState(false);
-
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getUsersWelcomeDataAsync();
+        const welcomeData = response.data;
+        setTotalUsers(welcomeData.totalUserAmount);
+        setSavedTrees(welcomeData.savedTrees);
+        setTotalFootPrint(welcomeData.totalFootPrint);
+        console.log(response);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   const handleShowModalSignin = () => {
     setShowModalSignin(true);
@@ -30,6 +47,9 @@ function Stats() {
     setShowModalSignup(false);
   };
 
+ 
+  
+
   return (
     <div className="content">
       <div>
@@ -38,7 +58,7 @@ function Stats() {
       <div>
         <div className="statsec">Total users: {totalUsers}</div>
         <div className="statsec">Saved trees: {savedTrees}</div>
-        <div className="statsec">Total emissions: {emissions}</div>
+        <div className="statsec">Total carbon footprints: {totalFootPrint}</div>
         <div className="buttons">
           <button onClick={handleShowModalSignin}>Sign In</button>
           <button onClick={handleShowModalSignup}>Sign Up</button>

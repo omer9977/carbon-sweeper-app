@@ -1,73 +1,60 @@
-import React, { useState } from 'react';
-import '../css/calculator.css';
-import { Modal, Button, ProgressBar, Form } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Modal, Button, ProgressBar, Form } from "react-bootstrap";
+import { calculateFootPrint } from "../services/CalculationService";
+import "../css/calculator.css";
 
 const CalculatorModal = ({ show, onHide }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answer, setAnswer] = useState(0);
+  const questions = ["House", "General Consumption", "General Consumption", "Transportation"]
   const [answers, setAnswers] = useState({
-    house: { naturalGas: '', coal: '', electricity: '' },
-    generalConsumption: { food: '', diet: '1', clothes: '', paper: '', electronics: '', fun: '' },
-    transportation: { fuel: '', publicTransport: 'none' },
+    house: { naturalGas: 0, coal: 0, electricity: 0 },
+    generalConsumption1: {
+      food: 0,
+      diet: 1,
+      clothes: 0,
+      paper: 0,},
+      generalConsumption2:{
+      electronics: 0,
+      fun: 0,
+      dressing: 0,
+      paperProduct: 0,
+    },
+    transportation: {
+      fuel: 0,
+      publicTransport: 1,
+      transportFrequency: 1,
+    },
   });
-
-  const questions = [
-    {
-      title: 'House',
-      items: [
-        { label: 'Natural Gas' },
-        { label: 'Coal' },
-        { label: 'Electricity' },
-      ],
-    },
-    {
-      title: 'General Consumption',
-      items: [
-        { label: 'Clothes' },
-        { label: 'Paper Products' },
-        { label: 'Electronics' },
-        { label: 'Fun' },
-      ],
-    },
-    {
-      title: 'Transportation',
-      items: [
-        { label: 'Fuel' },
-      ],
-    },
-    {
-        title: 'Food',
-        items: [
-          { label: 'Cost' },
-        ],
-      },
-  ];
 
   const handlePrevious = () => {
     setCurrentQuestion((prevQuestion) => prevQuestion - 1);
+    console.log(currentQuestion);
   };
 
   const handleNext = () => {
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    console.log(currentQuestion);
   };
 
-  const handleInputChange = (e, section, itemIndex) => {
+  const handleInputChange = (e, section, item) => {
     const value = e.target.value;
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [section]: {
         ...prevAnswers[section],
-        [questions[currentQuestion].items[itemIndex].label.toLowerCase()]: value,
+        [item]: value,
       },
     }));
   };
 
-  const handleDropdownChange = (e) => {
+  const handleDropdownChange = (e, section, item) => {
     const value = e.target.value;
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      transportation: {
-        ...prevAnswers.transportation,
-        publicTransport: value,
+      [section]: {
+        ...prevAnswers[section],
+        [item]: value,
       },
     }));
   };
@@ -75,79 +62,273 @@ const CalculatorModal = ({ show, onHide }) => {
   const handleClose = () => {
     setCurrentQuestion(0);
     setAnswers({
-      house: { naturalGas: '', coal: '', electricity: '' },
-      generalConsumption: { food: '', clothes: '', paper: '', electronics: '', fun: '' },
-      transportation: { fuel: '', publicTransport: 'none' },
+      house: { naturalGas: 0, coal: 0, electricity: 0 },
+      generalConsumption1: {
+        food: 0,
+        diet: 0,
+        clothes: 0,
+        paper: 0,},
+        generalConsumption2:{
+        electronics: 0,
+        fun: 0,
+        dressing: 0,
+        paperProduct: 0,
+      },
+      transportation: { fuel: 0, publicTransport: 0 },
     });
     onHide();
   };
 
+  const handleSubmit = async () => {
+    console.log("Gönderilecek veriler:", answers);
+    setCurrentQuestion(currentQuestion + 1);
+    var response = await calculateFootPrint(answers);
+    setAnswer(response.data);
+    console.log(response);
+    
+    // Diğer işlemler ve POST isteği burada gerçekleştirilir
+    // ...
+  };
+
   return (
-    <Modal closeButton show={show} onHide={handleClose} className='custom-modal'>
+    <Modal
+      closeButton
+      show={show}
+      onHide={handleClose}
+      className="custom-modal"
+    >
       <Modal.Header closeButton>
-        <Modal.Title>{questions[currentQuestion].title}</Modal.Title>
+        <Modal.Title>{questions[currentQuestion]}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ProgressBar now={(currentQuestion / questions.length) * 100} label={`${currentQuestion + 1}/${questions.length}`} />
-        {questions[currentQuestion].items.map((item, index) => (
-          <div className="question" key={index}>
-            <span>Question:</span>
-            <span>{item.label}</span>
+        <ProgressBar
+          now={(currentQuestion + 1 / 3) * 100}
+          label={`${currentQuestion + 1}/3`}
+        />
+        {currentQuestion === 0 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to natural gas in a month?</span>
             <div className="answer">
-              <span>Answer:</span>
-                <input
-                  type="text"
-                  value={answers[questions[currentQuestion].title.toLowerCase()][item.label.toLowerCase()]}
-                  onChange={(e) => handleInputChange(e, questions[currentQuestion].title.toLowerCase(), index)}
-                />
+              <input
+                type="number"
+                value={answers.house.naturalGas}
+                onChange={(e) => handleInputChange(e, "house", "naturalGas")}
+              />
             </div>
           </div>
-        ))}
-        {questions[currentQuestion].title === 'Transportation' && (
+        )}
+        {currentQuestion === 0 && (
           <div className="question">
-            <span>Question:</span>
-            <span>Public Transport</span>
+            <span className="calculator-text">How much do you pay to coal in a month?</span>
             <div className="answer">
-              <span>Answer:</span>
-              <Form.Select value={answers.transportation.publicTransport} onChange={handleDropdownChange}>
+              <input
+                type="number"
+                value={answers.house.coal}
+                onChange={(e) => handleInputChange(e, "house", "coal")}
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 0 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to electricity in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.house.electricity}
+                onChange={(e) => handleInputChange(e, "house", "electricity")}
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 1 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to clothes in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption1.clothes}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption1", "clothes")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 1 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to paper products in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption1.paper}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption1", "paper")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 1 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to food in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption1.food}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption1", "food")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 1 && (
+          <div className="question">
+            <span className="calculator-text">What is your food diet preference?</span>
+            <div className="answer">
+              <Form.Select
+                value={answers.generalConsumption1.diet}
+                onChange={handleDropdownChange}
+              >
+                <option value="1">Vegan</option>
+                <option value="2">Vegetarian</option>
+                <option value="3">Pescatarian</option>
+                <option value="4">Little Meat</option>
+                <option value="5">Medium Meat</option>
+                <option value="6">Hard Meat</option>
+              </Form.Select>
+            </div>
+          </div>
+        )}
+        {currentQuestion === 2 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to electronics in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption2.electronics}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption2", "electronics")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 2 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to fun in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption2.fun}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption2", "fun")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {currentQuestion === 2 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to dressing in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption2.dressing}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption2", "dressing")
+                }
+              />
+            </div>
+          </div>
+        )}
+        {/* {currentQuestion === 2 && (
+          <div className="question">
+            <span className="calculator-text">Paper Product Tl</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.generalConsumption2.paperProduct}
+                onChange={(e) =>
+                  handleInputChange(e, "generalConsumption2", "paperProduct")
+                }
+              />
+            </div>
+          </div>
+        )} */}
+        
+        {currentQuestion === 3 && (
+          <div className="question">
+            <span className="calculator-text">How much do you pay to fuel in a month?</span>
+            <div className="answer">
+              <input
+                type="number"
+                value={answers.transportation.fuel}
+                onChange={(e) => handleInputChange(e, "transportation", "fuel")}
+              />
+            </div>
+          </div>
+        )}
+        {/* {currentQuestion === 2 && (
+          <div className="question">
+            <span className="calculator-text">Question:</span>
+            <span className="calculator-text">Public Transport</span>
+            <div className="answer">
+              <Form.Select
+                value={answers.transportation.publicTransport}
+                onChange={handleDropdownChange}
+              >
+                <option value="none">None</option>
+                <option value="bus">Bus</option>
+                <option value="train">Train</option>
+                <option value="metro">Metro</option>
+              </Form.Select>
+            </div>
+          </div>
+        )} */}
+        {currentQuestion === 3 && (
+          <div className="question">
+            {/* <span className="calculator-text">Question:</span> */}
+            <span className="calculator-text">What is your transport frequency in a month</span>
+            <div className="answer">
+              <Form.Select
+                value={answers.transportation.transportFrequency}
+                onChange={(e) =>
+                  handleInputChange(e, "transportation", "transportFrequency")
+                }
+              >
                 <option value="1">Never</option>
-                <option value="2">Sometimes</option>
-                <option value="3">Often</option>
-                <option value="4">Frequently</option>
+                <option value="2">Rarely</option>
+                <option value="3">Sometimes</option>
+                <option value="4">Often</option>
                 <option value="5">Always</option>
               </Form.Select>
             </div>
           </div>
         )}
-        {questions[currentQuestion].title === 'Food' && (
-          <div className="question">
-            <span>Question:</span>
-            <span>Public Transport</span>
-            <div className="answer">
-              <span>Answer:</span>
-              <Form.Select value={answers.generalConsumption.diet} onChange={handleDropdownChange}>
-                <option value="1">Vegan</option>
-                <option value="2">Vegeterian</option>
-                <option value="3">Pescetarian</option>
-                <option value="4">Low Meat</option>
-                <option value="5">Medium Meat</option>
-                <option value="6">High Meat</option>
-              </Form.Select>
-            </div>
+        {currentQuestion === 4 && (
+          <div className="result-screen">
+            <h3>Result:</h3>
+            <pre>{answer}</pre>
           </div>
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handlePrevious} disabled={currentQuestion === 0}>
+        <Button
+          variant="secondary"
+          onClick={handlePrevious}
+          disabled={currentQuestion === 0}
+        >
           Previous
         </Button>
-        {currentQuestion < questions.length - 1 && (
+        {currentQuestion < 3 && (
           <Button variant="primary" onClick={handleNext}>
             Next
           </Button>
         )}
-        {currentQuestion === questions.length - 1 && (
-          <Button variant="success" onClick={onHide}>
+        {currentQuestion === 3 && (
+          <Button variant="success" onClick={handleSubmit}>
             Finish
           </Button>
         )}

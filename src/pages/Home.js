@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/welcome.css';
 import '../css/home.css';
 
 
 const Home = () => {
-  const seed = Math.floor(Math.random() * 1000);
-  const totalUsers = <div className="number">{seed}</div>;
-  const savedTrees = <div className="number">{Math.floor(seed * 0.8)}</div>;
-  const emissions = <div className="number">0.1</div>;
+useEffect(() => {
+  console.log("Home page loaded");
+}, [])
 
   return (
 

@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import CalculatorModal from './CalculatorModal';
 import SignIn from '../pages/SignIn';
+import decodeJWT from "../utils/jwtDecoder";
 
 const Navbar = ({ isLoggedIn, username, onLogout }) => {
+  const token = localStorage.getItem('accessToken');
+  const decodedToken = decodeJWT(token);
+
   const linkStyle = {
     color: 'white',
     marginRight: '10px',
@@ -59,6 +63,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
   };
 
   const handleProfileClick = () => {
+    console.log(decodedToken);
     setShowProfileOptions(prevState => !prevState);
   };
 
@@ -78,7 +83,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
             <NavLink className='nav-button' onClick={handleOpenCalculatorModal} style={linkStyle}>Calculator</NavLink>
           </li>
           <li style={{ display: 'inline' }}>
-            <NavLink to="/" style={linkStyle}>Leaderboard</NavLink>
+            <NavLink to="/leaderboard" style={linkStyle}>Leaderboard</NavLink>
           </li>
           <li style={{ display: 'inline' }}>
             <NavLink to="/foot-print-info" style={linkStyle}>Foot Print Info</NavLink>
@@ -86,7 +91,7 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
         </ul>
         {/* {isLoggedIn && ( */}
         <div style={profileStyle}>
-          <span style={usernameStyle}>{/*username*/}John Doe</span>
+          <span style={usernameStyle}>{decodedToken?.userFullName}</span>
           <img
             src="https://img.a.transfermarkt.technology/portrait/header/68863-1671105169.png?lm=1"
             alt="Profile"

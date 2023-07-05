@@ -13,6 +13,9 @@
     font-family: "JetBrains Mono", monospace;
   }
   
+  .statsec{
+    color: #FBF2F2;
+  }
   .number {
     display: contents;
     color: #54BD58;
