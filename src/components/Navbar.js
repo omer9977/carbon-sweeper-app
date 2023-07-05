@@ -70,8 +70,8 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
   const handleLogout = () => {
     // onLogout();
     setShowProfileOptions(false);
-    localStorage.removeItem('accessToken');
-    navigate("/");
+    // localStorage.removeItem('accessToken');
+    // navigate("/");
   };
 
   return (
@@ -102,8 +102,8 @@ const Navbar = ({ isLoggedIn, username, onLogout }) => {
           />
           {showProfileOptions && (
             <div style={profileOptionsStyle}>
-              <NavLink to="/profile" style={linkStyle}>Profil</NavLink>
-              <NavLink to="/" style={linkStyle}>Logout</NavLink>
+              <NavLink to="/profile" onClick={handleLogout} style={linkStyle}>Profil</NavLink>
+              <NavLink to="/" onClick={handleLogout} style={linkStyle}>Logout</NavLink>
             </div>
           )}
         </div>

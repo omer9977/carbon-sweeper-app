@@ -4,15 +4,15 @@ import config from '../utils/config';
 
 
 const apiAuthUrl = `${config.apiUrl}/calculation`;
-const token = localStorage.getItem("accessToken");
 // const decodedToken = decodeJWT(token);
-const configAxios = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
+// const configAxios = {
+//   headers: {
+//     Authorization: `Bearer ${token}`,
+//   },
+// };
 
 const calculateFootPrint = async (answers) => {
+  const token = localStorage.getItem("accessToken");
   try {
     const data = {
       // clothesTl: answers.generalConsumption.clothes,
@@ -28,10 +28,12 @@ const calculateFootPrint = async (answers) => {
       publicTransportTl: answers.transportation.publicTransport,
       transportFrequency: answers.transportation.transportFrequency,
       dressingTl: answers.generalConsumption2.dressing,
-      paperProductTl: answers.generalConsumption1.paperProduct,
+      paperProductTl: answers.generalConsumption1.paper,
     };
     
-    const response = await axios.post(`${apiAuthUrl}/calculate-foot-print`, data, configAxios);
+    const response = await axios.post(`${apiAuthUrl}/calculate-foot-print`, data, {headers: {
+      Authorization: `Bearer ${token}`,
+    }});
 
 
     return response.data // Erişim belirteci (accessToken) döndür
@@ -43,6 +45,7 @@ const calculateFootPrint = async (answers) => {
 };
 
 const getFootPrintWarnings = async () => {
+  const token = localStorage.getItem("accessToken");
   try {
     const response = await axios.get(`${apiAuthUrl}/get-foot-print-warnings`,
     {

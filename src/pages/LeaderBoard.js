@@ -65,7 +65,7 @@ export default function LeaderBoard() {
               <StyledTableCell component="th" scope="row">
                 {row.fullName}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.footPrint} ton</StyledTableCell>
+              <StyledTableCell align="right">{row.footPrint.toFixed(2)} ton</StyledTableCell>
               {/* <StyledTableCell align="right">{row.rank}</StyledTableCell> */}
             </StyledTableRow>
           ))}

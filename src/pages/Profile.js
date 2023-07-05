@@ -1,21 +1,35 @@
 import React from 'react';
 import '../css/profile.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserInfosAsync } from '../services/UserService';
 
 const Profile = () => {
   // Kullanıcı bilgilerini burada alabilirsiniz
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'johndoe@example.com',
-    address: '123 Main St',
-  };
-
-  useEffect( async () => {
-    var response = await getUserInfosAsync(); 
-    console.log(response);
-  }, [])
+  // const user = {
+  //   firstName: 'John',
+  //   lastName: 'Doe',
+  //   email: 'johndoe@example.com',
+  //   userName: '123 Main St',
+  //   footPrint: 123,
+  //   footPrintReduction: 123,
+  // };
+  const [userInfos, setUserInfos] = useState({});
+  
+  useEffect(() => {
+    const fetchUserInfos = async () => {
+      try {
+        const response = await getUserInfosAsync();
+        console.log(response);
+        setUserInfos(response.data);
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    };
+  
+    fetchUserInfos();
+  }, []);
+  
   
 
   return (
@@ -30,7 +44,7 @@ const Profile = () => {
                 display: 'block',
               }}
             >
-              Name: {user.firstName}
+              Name: {userInfos.firstName}
             </span>
           </p>
         </div>
@@ -42,7 +56,7 @@ const Profile = () => {
                 display: 'block',
               }}
             >
-              Last Name: {user.lastName}
+              Last Name: {userInfos.lastName}
             </span>
           </p>
         </div>
@@ -54,7 +68,7 @@ const Profile = () => {
                 display: 'block',
               }}
             >
-              Email: {user.email}
+              Email: {userInfos.email}
             </span>
           </p>
         </div>
@@ -66,7 +80,31 @@ const Profile = () => {
                 display: 'block',
               }}
             >
-              {user.address}
+              Username: {userInfos.userName}
+            </span>
+          </p>
+        </div>
+        <div>
+          <p className='foot-print-message'>
+            <span
+              style={{
+                color: 'white',
+                display: 'block',
+              }}
+            >
+              Footprint: {userInfos.footPrint} per year
+            </span>
+          </p>
+        </div>
+        <div>
+          <p className='foot-print-message'>
+            <span
+              style={{
+                color: 'white',
+                display: 'block',
+              }}
+            >
+              Footprint Reduction: {userInfos.footPrintReduction} ton
             </span>
           </p>
         </div>

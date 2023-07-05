@@ -20,7 +20,7 @@ function Stats() {
         const welcomeData = response.data;
         setTotalUsers(welcomeData.totalUserAmount);
         setSavedTrees(welcomeData.savedTrees);
-        setTotalFootPrint(welcomeData.totalFootPrint);
+        setTotalFootPrint(welcomeData.reducedFootPrint);
         console.log(response);
       } catch (error) {
         console.error('Error:', error);
@@ -58,7 +58,7 @@ function Stats() {
       <div>
         <div className="statsec">Total users: {totalUsers}</div>
         <div className="statsec">Saved trees: {savedTrees}</div>
-        <div className="statsec">Total carbon footprints: {totalFootPrint/1000} ton</div>
+        <div className="statsec">Total footprint reduction: {(totalFootPrint/1000).toFixed(2)} ton</div>
         <div className="buttons">
           <button onClick={handleShowModalSignin}>Sign In</button>
           <button onClick={handleShowModalSignup}>Sign Up</button>
